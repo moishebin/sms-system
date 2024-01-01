@@ -9,7 +9,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class webdb:
     def __init__(self):
-        self.baseUrl = "https://talmudobeyado.net"
+        self.baseUrl = os.environ["url"]
         self.headers = {'Content-type': 'application/json', 'Accept': 'text/plain', 'x-token' : os.environ["talmido_token"]}
 
 
@@ -26,7 +26,7 @@ class webdb:
 
 
     def _login(self):
-        url = "https://talmudobeyado.net/api-new/auth/login"
+        url = os.environ["url"]
         payload = {'username': os.environ["talmido_username"], 'password': os.environ["talmido_password"]}
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         r = requests.post(url, data=json.dumps(payload), headers=headers, verify=False)
@@ -35,7 +35,7 @@ class webdb:
 
 
     def getAllQuestions(self):
-        url = "https://talmudobeyado.net/getAllQuestions"
+        url = os.environ["url"]
         r = requests.post(url, headers=self.headers, verify=False)
         return json.loads(r.content.decode('utf-8'))
 
